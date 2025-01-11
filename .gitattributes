@@ -1,1 +1,3 @@
 * text=auto
+*.mpy binary
+*.hid binary
