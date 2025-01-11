@@ -50,3 +50,5 @@ hid_gamepad = usb_hid.Device(
     in_report_lengths=(2,),
     out_report_lengths=(0,),
 )
+
+usb_hid.enable((hid_gamepad,))
