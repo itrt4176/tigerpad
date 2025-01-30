@@ -41,12 +41,12 @@ COLLECTION (Application)	A1 01
     INPUT (Data,Var,Abs)	81 02 
   END_COLLECTION	C0
   COLLECTION (Physical)	A1 00 
-    USAGE (Dial)	09 37
+    USAGE (Rz)	09 35
     LOGICAL_MINIMUM (-1000)	16 18 FC 
     LOGICAL_MAXIMUM (1000)	26 E8 03 
     REPORT_SIZE (16)	75 10 
     REPORT_COUNT (1)	95 01 
-    INPUT (Data,Var,Rel)	81 06 
+    INPUT (Data,Var,Abs)	81 02 
   END_COLLECTION	C0
   COLLECTION (Application)	A1 01 
     REPORT_ID (2)	85 02 

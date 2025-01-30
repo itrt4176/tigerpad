@@ -65,12 +65,12 @@ GAMEPAD_REPORT_DESCRIPTOR = bytes((
     0x81, 0x02,                    #     INPUT (Data,Var,Abs)
     0xc0,                          #   END_COLLECTION
     0xa1, 0x00,                    #   COLLECTION (Physical)
-    0x09, 0x37,                    #     USAGE (Dial)
+    0x09, 0x35,                    #     USAGE (Rz)
     0x16, 0x18, 0xfc,              #     LOGICAL_MINIMUM (-1000)
     0x26, 0xe8, 0x03,              #     LOGICAL_MAXIMUM (1000)
     0x75, 0x10,                    #     REPORT_SIZE (16)
     0x95, 0x01,                    #     REPORT_COUNT (1)
-    0x81, 0x06,                    #     INPUT (Data,Var,Rel)
+    0x81, 0x02,                    #     INPUT (Data,Var,Abs)
     0xc0,                          #   END_COLLECTION
     0xa1, 0x01,                    #   COLLECTION (Application)
     0x85, 0x02,                    #     REPORT_ID (2)
