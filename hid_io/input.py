@@ -43,7 +43,7 @@ class HIDAnalogInput(HIDInputBase):
 
     @property
     def state(self) -> int:
-        return map_val(self._ain.value, 0, 65535, -128, 127)
+        return map_val(self._ain.value, 0, 65535, -2048, 2047)
 
 
 class HIDRotaryEncoder(HIDInputBase):

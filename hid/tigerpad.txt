@@ -16,9 +16,9 @@ COLLECTION (Application)	A1 01
     INPUT (Cnst,Var,Abs)	81 03 
     USAGE_PAGE (Generic Desktop)	05 01
     USAGE (Y)	09 31
-    LOGICAL_MINIMUM (-128)	15 80 
-    LOGICAL_MAXIMUM (127)	25 7F 
-    REPORT_SIZE (8)	75 08 
+    LOGICAL_MINIMUM (-2048)	16 00 F8 
+    LOGICAL_MAXIMUM (2047)	26 FF 07 
+    REPORT_SIZE (16)	75 10 
     REPORT_COUNT (3)	95 03 
     INPUT (Data,Var,Abs)	81 02 
     USAGE_PAGE (Generic Desktop)	05 01
