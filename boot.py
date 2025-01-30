@@ -71,7 +71,7 @@ hid_gamepad = usb_hid.Device(
     usage_page=0x01,
     usage=0x05,
     report_ids=(1,2),
-    in_report_lengths=(5,0),
+    in_report_lengths=(6,0),
     out_report_lengths=(0,2),
 )
 
