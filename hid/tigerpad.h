@@ -1,7 +1,7 @@
 // Z:\home\nmanos\Documents\Code\ITRT\tigerpad\tigerpad\hid\tigerpad.h
 
 
-char ReportDescriptor[81] = {
+char ReportDescriptor[83] = {
     0x05, 0x01,                    // USAGE_PAGE (Generic Desktop)
     0x09, 0x05,                    // USAGE (Game Pad)
     0xa1, 0x01,                    // COLLECTION (Application)
@@ -27,9 +27,9 @@ char ReportDescriptor[81] = {
     0x81, 0x02,                    //     INPUT (Data,Var,Abs)
     0x05, 0x01,                    //     USAGE_PAGE (Generic Desktop)
     0x09, 0x37,                    //     USAGE (Dial)
-    0x15, 0x80,                    //     LOGICAL_MINIMUM (-128)
-    0x25, 0x7f,                    //     LOGICAL_MAXIMUM (127)
-    0x75, 0x08,                    //     REPORT_SIZE (8)
+    0x16, 0x18, 0xfc,              //     LOGICAL_MINIMUM (-1000)
+    0x26, 0xe8, 0x03,              //     LOGICAL_MAXIMUM (1000)
+    0x75, 0x10,                    //     REPORT_SIZE (16)
     0x95, 0x01,                    //     REPORT_COUNT (1)
     0x81, 0x06,                    //     INPUT (Data,Var,Rel)
     0xc0,                          //   END_COLLECTION
