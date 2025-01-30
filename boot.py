@@ -8,7 +8,7 @@ import supervisor
 import usb_cdc
 import usb_hid
 
-supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller")
+supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
 
 debug_button = digitalio.DigitalInOut(board.GP22)
 debug_button.pull = digitalio.Pull.DOWN
