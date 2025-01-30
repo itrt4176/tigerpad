@@ -10,7 +10,7 @@ import usb_hid
 
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller")
 
-debug_button = digitalio.DigitalInOut(board.GP16)
+debug_button = digitalio.DigitalInOut(board.GP22)
 debug_button.pull = digitalio.Pull.DOWN
 
 if not (bool(os.getenv("DEBUG_MODE", 1)) or debug_button.value):
