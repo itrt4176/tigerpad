@@ -30,20 +30,22 @@
 |  19 |  GP14 |     L4R_BTN     |     INPUT    |
 |  20 |  GP15 |     L4R_LED     |    OUTPUT    |
 |  21 |  GP16 |    ARM_EN_SW    |     INPUT    |
-|  22 |  GP17 |      ARM_LO     |     INPUT    |
-|  24 |  GP18 |      ARM_HI     |     INPUT    |
-|  25 |  GP19 |   WRIST_EN_SW   |     INPUT    |
-|  26 |  GP20 |   WRIST_ROT_A   |   INPUT[^2]  |
-|  27 |  GP21 |   WRIST_ROT_B   |   INPUT[^2]  |
-|  29 |  GP22 | WRIST_PIVOT[^3] |     INPUT    |
-|  31 |  GP26 |                 |              |
-|  32 |  GP27 |                 |              |
-|  34 |  GP28 |   FWUP_BTN[^4]  |              |
+|  22 |  GP17 |   WRIST_EN_SW   |     INPUT    |
+|  24 |  GP18 |   WRIST_ROT_A   |   INPUT[^2]  |
+|  25 |  GP19 |   WRIST_ROT_B   |   INPUT[^2]  |
+|  26 |  GP20 |                 |              |
+|  27 |  GP21 |                 |              |
+|  29 |  GP22 |   FWUP_BTN[^3]  |              |
+|  31 |  GP26 |      ARM_LO     |     INPUT    |
+|  32 |  GP27 |      ARM_HI     |     INPUT    |
+|  34 |  GP28 | WRIST_PIVOT[^4] |     INPUT    |
+
+**NOTE: WRIST_ROT_A and WRIST_ROT_B need to be moved to an external ADC**
 
 [^1]: In the USB HID spec, input and output are relative to the host device (i.e. the computer) the USB device is plugged into
 
 [^2]: Rotary encoder inputs A and B are combined to calculate a single USB input
 
-[^3]: This joystick is not present in the mockup
+[^3]: This is a hidden button used to put the microcontroller into firmware update mode
 
-[^4]: This is a hidden button used to put the microcontroller into firmware update mode
+[^4]: This joystick is not present in the mockup
