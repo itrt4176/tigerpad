@@ -44,8 +44,8 @@ class HIDLEDOutput(HIDOutputBase):
         super().__init__(hid_id)
         self._led = DigitalInOut(pin)
         self._led.direction = Direction.OUTPUT
-        # self._state : 'Literal[0, 1, 2]' = HIDLEDOutput.Mode.OFF
-        self._state: 'Literal[0, 1, 2]' = HIDLEDOutput.Mode.BLINK if self.id % 2 == 1 else HIDLEDOutput.Mode.ON
+        self._state : 'Literal[0, 1, 2]' = HIDLEDOutput.Mode.BLINK
+        # self._state: 'Literal[0, 1, 2]' = HIDLEDOutput.Mode.BLINK if self.id % 2 == 1 else HIDLEDOutput.Mode.ON
         self._last_run = 0
     
     @property

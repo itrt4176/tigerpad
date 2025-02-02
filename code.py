@@ -38,17 +38,19 @@ led_hids = [HIDLEDOutput(pin, hid_id) for pin, hid_id in zip(led_out_pins, led_o
 
 device: usb_hid.Device = find_device(usb_hid.devices, usage_page=0x01, usage=0x05)  # type: ignore
 
+send_errors = 0
+read_errors = 0
 last_run = ticks_ms()
 while True:
-    if ticks_ms() >= last_run + 5:
-        report = bytearray(10)
+    if ticks_ms() >= last_run + 10:
+        report = bytearray(9)
 
         digital_bits: int = 0
         for digital_in in digital_hids:
             digital_bits |= digital_in.state << (digital_in.id - 1)
 
         struct.pack_into(
-            "<Hhhhh",
+            "<HhhhB",
             report,
             0,
             digital_bits,
@@ -56,14 +58,29 @@ while True:
             0,
         )
 
-        device.send_report(report, INPUT_REPORT_ID)
-        last_run = ticks_ms()
+        try:
+            device.send_report(report, 4)
+            last_run = ticks_ms()
+            if send_errors > 0:
+                print('Sent')
+            send_errors = 0
+        except OSError as e:
+            send_errors = send_errors + 1
+            print(f'send_report: {e} (error count {send_errors})')
     
-    output_report = device.get_last_received_report(OUTPUT_REPORT_ID)
-    if output_report:
-        led_bits: int = struct.unpack_from('<H', output_report)[0]
-        for led in led_hids:
-            led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
+        try:
+            output_report = device.get_last_received_report(4)
+            if read_errors > 0:
+                print('Read')
+            if output_report:
+                print('Output Changed')
+                led_bits: int = struct.unpack_from('<H', output_report)[0]
+                for led in led_hids:
+                    led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
+            read_errors = 0
+        except OSError as e:
+            read_errors = read_errors + 1
+            print(f'get_last_received_report: {e} (error count {read_errors})')
     
     for led in led_hids:
         led.run()
