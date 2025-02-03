@@ -10,6 +10,7 @@ import usb_midi
 
 supervisor.runtime.autoreload = False
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
+usb_hid.set_interface_name("TigerPad Controller") # type: ignore
 
 debug_button = digitalio.DigitalInOut(board.GP22)
 debug_button.pull = digitalio.Pull.DOWN
