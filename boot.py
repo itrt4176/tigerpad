@@ -18,9 +18,9 @@ usb_midi.disable()
 
 if not (bool(os.getenv("DEBUG_MODE", 1)) or debug_button.value):
     storage.disable_usb_drive()
-    usb_cdc.disable()
+    usb_cdc.enable(console=False, data=True)
 else:
-    usb_cdc.enable(data=True)
+    usb_cdc.enable(console=True, data=True)
 
 
 # fmt: off

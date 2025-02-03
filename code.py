@@ -2,11 +2,14 @@ import struct
 
 import board
 from hid_io.output import HIDLEDOutput
+import usb_cdc
 import usb_hid
 from adafruit_hid import find_device
 from supervisor import ticks_ms
 
 from hid_io.input import HIDAnalogInput, HIDDigitalInput
+
+serial: usb_cdc.Serial = usb_cdc.data # type: ignore
 
 digital_in_pins = (
     board.GP0,
@@ -38,7 +41,6 @@ led_hids = [HIDLEDOutput(pin, hid_id) for pin, hid_id in zip(led_out_pins, led_o
 device: usb_hid.Device = find_device(usb_hid.devices, usage_page=0x01, usage=0x05)  # type: ignore
 
 send_errors = 0
-read_errors = 0
 last_run = ticks_ms()
 while True:
     if ticks_ms() >= last_run + 10:
@@ -66,20 +68,14 @@ while True:
         except OSError as e:
             send_errors = send_errors + 1
             print(f'send_report: {e} (error count {send_errors})')
-    
-        # try:
-        #     output_report = device.get_last_received_report()
-        #     if read_errors > 0:
-        #         print('Read')
-        #     if output_report:
-        #         print('Output Changed')
-        #         led_bits: int = struct.unpack_from('<H', output_report)[0]
-        #         for led in led_hids:
-        #             led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
-        #     read_errors = 0
-        # except OSError as e:
-        #     read_errors = read_errors + 1
-        #     print(f'get_last_received_report: {e} (error count {read_errors})')
+
+    if serial.connected and serial.in_waiting >= 2:
+        output_states = bytearray(2)
+        serial.readinto(output_states)
+
+        led_bits: int = struct.unpack_from('<H', output_states)[0]
+        for led in led_hids:
+            led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
     
     for led in led_hids:
         led.run()
