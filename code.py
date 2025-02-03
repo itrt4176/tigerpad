@@ -59,7 +59,7 @@ while True:
         )
 
         try:
-            device.send_report(report, 4)
+            device.send_report(report)
             last_run = ticks_ms()
             if send_errors > 0:
                 print('Sent')
@@ -69,7 +69,7 @@ while True:
             print(f'send_report: {e} (error count {send_errors})')
     
         try:
-            output_report = device.get_last_received_report(4)
+            output_report = device.get_last_received_report()
             if read_errors > 0:
                 print('Read')
             if output_report:
