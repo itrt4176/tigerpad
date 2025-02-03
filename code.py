@@ -6,7 +6,6 @@ import usb_hid
 from adafruit_hid import find_device
 from supervisor import ticks_ms
 
-from constants import INPUT_REPORT_ID, OUTPUT_REPORT_ID
 from hid_io.input import HIDAnalogInput, HIDDigitalInput
 
 digital_in_pins = (

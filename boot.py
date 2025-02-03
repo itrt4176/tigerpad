@@ -1,7 +1,6 @@
 import os
 
 import board
-from constants import INPUT_REPORT_ID, OUTPUT_REPORT_ID
 import digitalio
 import storage
 import supervisor
