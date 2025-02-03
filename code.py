@@ -68,19 +68,19 @@ while True:
             send_errors = send_errors + 1
             print(f'send_report: {e} (error count {send_errors})')
     
-        try:
-            output_report = device.get_last_received_report()
-            if read_errors > 0:
-                print('Read')
-            if output_report:
-                print('Output Changed')
-                led_bits: int = struct.unpack_from('<H', output_report)[0]
-                for led in led_hids:
-                    led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
-            read_errors = 0
-        except OSError as e:
-            read_errors = read_errors + 1
-            print(f'get_last_received_report: {e} (error count {read_errors})')
+        # try:
+        #     output_report = device.get_last_received_report()
+        #     if read_errors > 0:
+        #         print('Read')
+        #     if output_report:
+        #         print('Output Changed')
+        #         led_bits: int = struct.unpack_from('<H', output_report)[0]
+        #         for led in led_hids:
+        #             led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
+        #     read_errors = 0
+        # except OSError as e:
+        #     read_errors = read_errors + 1
+        #     print(f'get_last_received_report: {e} (error count {read_errors})')
     
     for led in led_hids:
         led.run()
