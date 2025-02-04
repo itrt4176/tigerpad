@@ -5,6 +5,7 @@ adafruit-circuitpython-requests==4.1.9
 adafruit-circuitpython-typing==1.11.2
 Adafruit-PlatformDetect==3.77.0
 Adafruit-PureIO==1.1.11
+altgraph==0.17.4
 bcrypt==4.2.1
 binho-host-adapter==0.1.6
 cffi==1.17.1
@@ -23,6 +24,8 @@ pluggy==1.5.0
 pycparser==2.22
 pyfrc==2025.0.0
 pyftdi==0.56.0
+pyinstaller==6.11.1
+pyinstaller-hooks-contrib==2025.1
 PyNaCl==1.5.0
 pynetconsole==2.0.4
 pyntcore==2025.2.1.1
