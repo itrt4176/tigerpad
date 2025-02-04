@@ -1,13 +1,19 @@
 import struct
 
 import board
+from constants import FW_UPDATE_PIN
 from hid_io.output import HIDLEDOutput
+import microcontroller
 import usb_cdc
 import usb_hid
 from adafruit_hid import find_device
 from supervisor import ticks_ms
+import digitalio
 
 from hid_io.input import HIDAnalogInput, HIDDigitalInput
+
+fw_update_btn = digitalio.DigitalInOut(FW_UPDATE_PIN)
+fw_update_btn.pull = digitalio.Pull.DOWN
 
 serial: usb_cdc.Serial = usb_cdc.data # type: ignore
 
@@ -43,6 +49,9 @@ device: usb_hid.Device = find_device(usb_hid.devices, usage_page=0x01, usage=0x0
 send_errors = 0
 last_run = ticks_ms()
 while True:
+    if fw_update_btn.value:
+        microcontroller.reset()
+
     if ticks_ms() >= last_run + 10:
         report = bytearray(9)
 

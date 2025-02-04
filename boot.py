@@ -1,6 +1,7 @@
 import os
 
 import board
+from constants import FW_UPDATE_PIN
 import digitalio
 import storage
 import supervisor
@@ -12,12 +13,12 @@ supervisor.runtime.autoreload = False
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
 usb_hid.set_interface_name("TigerPad Controller") # type: ignore
 
-debug_button = digitalio.DigitalInOut(board.GP22)
-debug_button.pull = digitalio.Pull.DOWN
+fw_update_button = digitalio.DigitalInOut(FW_UPDATE_PIN)
+fw_update_button.pull = digitalio.Pull.DOWN
 
 usb_midi.disable()
 
-if not (bool(os.getenv("DEBUG_MODE", 1)) or debug_button.value):
+if not (bool(os.getenv("DEBUG_MODE", 1)) or fw_update_button.value):
     storage.disable_usb_drive()
     usb_cdc.enable(console=False, data=True)
 else:
