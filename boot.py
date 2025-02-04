@@ -1,7 +1,6 @@
 import os
 
 import board
-from constants import INPUT_REPORT_ID, OUTPUT_REPORT_ID
 import digitalio
 import storage
 import supervisor
@@ -11,6 +10,7 @@ import usb_midi
 
 supervisor.runtime.autoreload = False
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
+usb_hid.set_interface_name("TigerPad Controller") # type: ignore
 
 debug_button = digitalio.DigitalInOut(board.GP22)
 debug_button.pull = digitalio.Pull.DOWN
@@ -19,9 +19,9 @@ usb_midi.disable()
 
 if not (bool(os.getenv("DEBUG_MODE", 1)) or debug_button.value):
     storage.disable_usb_drive()
-    usb_cdc.disable()
+    usb_cdc.enable(console=False, data=True)
 else:
-    usb_cdc.enable(data=True)
+    usb_cdc.enable(console=True, data=True)
 
 
 # fmt: off
@@ -75,18 +75,6 @@ GAMEPAD_REPORT_DESCRIPTOR = bytes((
     0x95, 0x01,                    #     REPORT_COUNT (1)
     0x81, 0x02,                    #     INPUT (Data,Var,Abs)
     0xc0,                          #   END_COLLECTION
-    0xa1, 0x00,                    #   COLLECTION (Physical)
-    0x05, 0x09,                    #     USAGE_PAGE (Button)
-    0x19, 0x01,                    #     USAGE_MINIMUM (Button 1)
-    0x29, 0x10,                    #     USAGE_MAXIMUM (Button 16)
-    0x15, 0x00,                    #     LOGICAL_MINIMUM (0)
-    0x25, 0x01,                    #     LOGICAL_MAXIMUM (1)
-    0x35, 0x00,                    #     PHYSICAL_MINIMUM (0)
-    0x45, 0x01,                    #     PHYSICAL_MAXIMUM (1)
-    0x75, 0x01,                    #     REPORT_SIZE (1)
-    0x95, 0x10,                    #     REPORT_COUNT (16)
-    0x91, 0x02,                    #     OUTPUT (Data,Var,Abs)
-    0xc0,                          #   END_COLLECTION
     0xc0                           # END_COLLECTION
 ))
 # fmt: on
@@ -97,7 +85,7 @@ hid_gamepad = usb_hid.Device(
     usage=0x05,
     report_ids=(0,),
     in_report_lengths=(9,),
-    out_report_lengths=(2,),
+    out_report_lengths=(0,),
 )
 
 usb_hid.enable((hid_gamepad,))
