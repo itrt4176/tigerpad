@@ -62,7 +62,7 @@ class HIDLEDOutput(HIDOutputBase):
         if self._state == HIDLEDOutput.Mode.OFF:
             self._led.value = False
         elif self._state == HIDLEDOutput.Mode.BLINK:
-            if ticks_ms() >= self._last_run + 1000:
+            if ticks_ms() >= self._last_run + 750:
                 self._led.value = not self._led.value
                 self._last_run = ticks_ms()
         elif self._state == HIDLEDOutput.Mode.ON:
