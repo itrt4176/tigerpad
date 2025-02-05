@@ -1,6 +1,5 @@
 @echo off
 TITLE TigerPad Relay
-CONSOLESTATE /Hide
 
 IF EXIST relay.pid (
     GOTO stoprelay
