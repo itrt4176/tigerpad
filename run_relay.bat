@@ -24,6 +24,7 @@ IF EXIST .venv\ (
 py -m venv .venv
 
 :updatedeps
+.venv\Scripts\activate.bat
 pip install -r requirements.txt
 
 :startrelay
