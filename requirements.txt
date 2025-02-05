@@ -40,6 +40,7 @@ robotpy-wpimath==2025.2.1.1
 robotpy-wpinet==2025.2.1.1
 robotpy-wpiutil==2025.2.1.1
 setuptools==75.8.0
+sysv_ipc==1.1.0
 tomli==2.2.1
 tomlkit==0.13.2
 typing_extensions==4.12.2
