@@ -329,4 +329,5 @@ Temporary Items
 
 # Relay PID file and logs
 relay.pid
-logs/
+logs/*
+!logs/.gitkeep
