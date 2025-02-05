@@ -1,6 +1,6 @@
 @echo off
 TITLE TigerPad Relay
-SETCONSOLE /hide
+CONSOLESTATE /Hide
 
 IF EXIST relay.pid (
     GOTO stoprelay
