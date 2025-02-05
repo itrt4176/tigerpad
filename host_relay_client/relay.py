@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 
+import atexit
+import os
 import platform
 import struct
 import sys
-from signal import SIGINT, signal
+from pathlib import Path
+from signal import SIGINT, SIGTERM, signal
 
 import click
 import cloup
@@ -16,6 +19,11 @@ from ntcore import (
 from serial import SerialException
 
 echo = click.echo
+
+pid_file = Path("relay.pid")
+
+with pid_file.open("w") as f:
+    f.write(f"{os.getpid()}")
 
 match platform.system():
     case "Windows":
@@ -105,11 +113,18 @@ def relay(serial_port: str, host: str | None, team: int):
 
 
 def sigint_handler(*args, **kwargs):
+    sys.exit()
+
+
+@atexit.register
+def cleanup():
     if ser.is_open:
         ser.close()
-    sys.exit()
+    if pid_file.exists():
+        os.remove(pid_file)
 
 
 if __name__ == "__main__":
     signal(SIGINT, sigint_handler)
+    signal(SIGTERM, sigint_handler)
     relay()
