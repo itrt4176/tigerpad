@@ -27,4 +27,4 @@ py -m venv .venv
 pip install -r requirements.txt
 
 :startrelay
-py host_relay_client.py
+py host_relay_client\relay.py
