@@ -327,5 +327,6 @@ Temporary Items
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
-# Relay PID file
+# Relay PID file and logs
 relay.pid
+logs/
