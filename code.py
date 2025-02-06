@@ -10,7 +10,7 @@ from adafruit_hid import find_device
 from supervisor import ticks_ms
 import digitalio
 
-from hid_io.input import HIDAnalogInput, HIDDigitalInput
+from hid_io.input import HIDAnalogInput, HIDDigitalInput, HIDRotaryEncoder
 
 fw_update_btn = digitalio.DigitalInOut(FW_UPDATE_PIN)
 fw_update_btn.pull = digitalio.Pull.DOWN
@@ -40,6 +40,8 @@ analog_hids = [
     HIDAnalogInput(pin, hid_id) for pin, hid_id in zip(analog_in_pins, analog_in_ids)
 ]
 
+rotary_encoder = HIDRotaryEncoder(board.GP18, board.GP19, 4)
+
 led_out_pins = (board.GP1, board.GP3, board.GP5, board.GP7, board.GP9, board.GP11, board.GP13, board.GP15)
 led_out_ids = range(1, 9)
 led_hids = [HIDLEDOutput(pin, hid_id) for pin, hid_id in zip(led_out_pins, led_out_ids)]
@@ -65,7 +67,7 @@ while True:
             0,
             digital_bits,
             *[analog_in.state for analog_in in analog_hids],
-            0,
+            rotary_encoder.state,
         )
 
         try:
