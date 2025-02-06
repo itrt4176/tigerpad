@@ -3,7 +3,7 @@ from digitalio import DigitalInOut, Direction, Pull
 from microcontroller import Pin
 from rotaryio import IncrementalEncoder
 
-from utils import clamp, map_val, input_modulus
+from utils import input_modulus, map_val
 
 
 class HIDInputBase:
@@ -53,4 +53,4 @@ class HIDRotaryEncoder(HIDInputBase):
 
     @property
     def state(self) -> int:
-        return input_modulus(self._enc.position, -50, 50) # type: ignore
+        return input_modulus(self._enc.position, -50, 50)  # type: ignore

@@ -40,8 +40,6 @@
 |  32 |  GP27 |      ARM_HI     |     INPUT    |
 |  34 |  GP28 | WRIST_PIVOT[^4] |     INPUT    |
 
-**NOTE: WRIST_ROT_A and WRIST_ROT_B need to be moved to an external ADC**
-
 [^1]: In the USB HID spec, input and output are relative to the host device (i.e. the computer) the USB device is plugged into
 
 [^2]: Rotary encoder inputs A and B are combined to calculate a single USB input

@@ -1,7 +1,5 @@
 import os
 
-import board
-from constants import FW_UPDATE_PIN
 import digitalio
 import storage
 import supervisor
@@ -9,9 +7,11 @@ import usb_cdc
 import usb_hid
 import usb_midi
 
+from constants import FW_UPDATE_PIN
+
 supervisor.runtime.autoreload = False
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
-usb_hid.set_interface_name("TigerPad Controller") # type: ignore
+usb_hid.set_interface_name("TigerPad Controller")  # type: ignore
 
 fw_update_button = digitalio.DigitalInOut(FW_UPDATE_PIN)
 fw_update_button.pull = digitalio.Pull.DOWN

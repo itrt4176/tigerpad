@@ -1,21 +1,21 @@
 import struct
 
 import board
-from constants import FW_UPDATE_PIN
-from hid_io.output import HIDLEDOutput
+import digitalio
 import microcontroller
 import usb_cdc
 import usb_hid
 from adafruit_hid import find_device
 from supervisor import ticks_ms
-import digitalio
 
-from hid_io.input import HIDAnalogInput, HIDDigitalInput
+from constants import FW_UPDATE_PIN
+from hid_io.input import HIDAnalogInput, HIDDigitalInput, HIDRotaryEncoder
+from hid_io.output import HIDLEDOutput
 
 fw_update_btn = digitalio.DigitalInOut(FW_UPDATE_PIN)
 fw_update_btn.pull = digitalio.Pull.DOWN
 
-serial: usb_cdc.Serial = usb_cdc.data # type: ignore
+serial: usb_cdc.Serial = usb_cdc.data  # type: ignore
 
 digital_in_pins = (
     board.GP0,
@@ -40,7 +40,18 @@ analog_hids = [
     HIDAnalogInput(pin, hid_id) for pin, hid_id in zip(analog_in_pins, analog_in_ids)
 ]
 
-led_out_pins = (board.GP1, board.GP3, board.GP5, board.GP7, board.GP9, board.GP11, board.GP13, board.GP15)
+rotary_encoder = HIDRotaryEncoder(board.GP18, board.GP19, 4)
+
+led_out_pins = (
+    board.GP1,
+    board.GP3,
+    board.GP5,
+    board.GP7,
+    board.GP9,
+    board.GP11,
+    board.GP13,
+    board.GP15,
+)
 led_out_ids = range(1, 9)
 led_hids = [HIDLEDOutput(pin, hid_id) for pin, hid_id in zip(led_out_pins, led_out_ids)]
 
@@ -65,27 +76,26 @@ while True:
             0,
             digital_bits,
             *[analog_in.state for analog_in in analog_hids],
-            0,
+            rotary_encoder.state,
         )
 
         try:
             device.send_report(report)
             last_run = ticks_ms()
             if send_errors > 0:
-                print('Sent')
+                print("Sent")
             send_errors = 0
         except OSError as e:
             send_errors = send_errors + 1
-            print(f'send_report: {e} (error count {send_errors})')
+            print(f"send_report: {e} (error count {send_errors})")
 
     if serial.connected and serial.in_waiting >= 2:
         output_states = bytearray(2)
         serial.readinto(output_states)
 
-        led_bits: int = struct.unpack_from('<H', output_states)[0]
+        led_bits: int = struct.unpack_from("<H", output_states)[0]
         for led in led_hids:
-            led.state = (led_bits >> (2 * (led.id - 1))) & 0b11 # type: ignore
-    
+            led.state = (led_bits >> (2 * (led.id - 1))) & 0b11  # type: ignore
+
     for led in led_hids:
         led.run()
-
