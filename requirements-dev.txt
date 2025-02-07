@@ -1,0 +1,4 @@
+-r requirements.txt
+packaging~=23.2
+pip~=25.0
+pipdeptree>=2.23.1
