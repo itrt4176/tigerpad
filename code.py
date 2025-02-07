@@ -5,7 +5,7 @@ import digitalio
 import microcontroller
 import usb_cdc
 import usb_hid
-from adafruit_hid import find_device
+from adafruit_hid import find_device # type: ignore
 from supervisor import ticks_ms
 
 from constants import FW_UPDATE_PIN
@@ -27,7 +27,7 @@ digital_in_pins = (
     board.GP12,
     board.GP14,
     board.GP16,
-    board.GP19,
+    board.GP17,
 )
 digital_in_ids = range(1, 11)
 digital_hids = [
