@@ -1,3 +1,4 @@
 cloup==3.0.5
 pyserial==3.5
+pystray==0.19.5
 robotpy==2025.2.1.1
