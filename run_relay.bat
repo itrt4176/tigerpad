@@ -28,4 +28,4 @@ call .venv\Scripts\activate.bat
 pip install -r requirements.txt
 
 :startrelay
-py host_relay_client\relay.py
+py relay\relay.pyw
