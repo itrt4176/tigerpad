@@ -13,4 +13,5 @@ then
     exit 1
 fi
 
-pipdeptree -f --python=auto --local-only --exclude pip,pipdeptree | grep -E '^[a-zA-Z0-9\-]+' | tee requirements.txt
+echo "pygobject==3.50.0; sys_platform=='linux'" > requirements.txt
+pipdeptree -f --python=auto --local-only --exclude pip,pipdeptree,pygobject,pycairo | grep -E '^[a-zA-Z0-9\-]+' | tee -a requirements.txt
