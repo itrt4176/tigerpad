@@ -21,6 +21,7 @@ IF EXIST .venv\ (
 
 :createvenv
 py -m venv .venv
+python -m pip install --upgrade pip
 
 :updatedeps
 call .venv\Scripts\activate.bat
