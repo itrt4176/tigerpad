@@ -26,5 +26,5 @@ jobs:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 tag: ${{ github.ref_name }}
               run: |
-                gh release create "$tag" "${{github.workspace}}\dist\relay-setup.exe#relay-setup_${tag#v}.exe" --repo="$GITHUB_REPOSITORY" --notes-from-tag
+                gh release create "$Env:tag" "${{github.workspace}}\dist\relay-setup.exe" --repo="$GITHUB_REPOSITORY" --notes-from-tag
 
