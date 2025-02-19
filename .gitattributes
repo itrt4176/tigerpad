@@ -1,3 +1,6 @@
 * text=auto
+*.bat text=clrf
+*.vbs text=clrf
+*.sh text=lf
 *.mpy binary
 *.hid binary

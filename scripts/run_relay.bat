@@ -4,15 +4,13 @@ TITLE TigerPad Relay
 IF EXIST relay.pid (
     GOTO stoprelay
 ) else (
-    GOTO runupdate
+    GOTO checkvenv
 )
 
 :stoprelay
 FOR /F "tokens=*" %%p IN (relay.pid) DO taskkill /pid %%p
 
-:runupdate
-git pull
-
+:checkvenv
 IF EXIST .venv\ (
     GOTO updatedeps
 ) else (
