@@ -8,9 +8,9 @@
     },
     "circuitpython.board.version": "9.2.4",
     "terminal.integrated.env.linux": {
-        "WINEPREFIX": "${workspaceFolder}/.wine"
+        "WINEPREFIX": "${env:HOME}/.inno"
     },
     "terminal.integrated.env.osx": {
-        "WINEPREFIX": "${workspaceFolder}/.wine"
+        "WINEPREFIX": "${env:HOME}/.inno"
     }
 }
