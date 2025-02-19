@@ -7,4 +7,10 @@
         "reportShadowedImports": "none"
     },
     "circuitpython.board.version": "9.2.4",
+    "terminal.integrated.env.linux": {
+        "WINEPREFIX": "${env:HOME}/.inno"
+    },
+    "terminal.integrated.env.osx": {
+        "WINEPREFIX": "${env:HOME}/.inno"
+    }
 }

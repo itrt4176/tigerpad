@@ -331,3 +331,6 @@ Temporary Items
 relay.pid
 logs/*
 !logs/.gitkeep
+
+# OutlineViewer
+.OutlineViewer/
