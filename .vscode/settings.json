@@ -1,0 +1,16 @@
+{
+    "circuitpython.board.vid": "0x239A",
+    "circuitpython.board.pid": "0x80F4",
+    "python.languageServer": "Pylance",
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingModuleSource": "none",
+        "reportShadowedImports": "none"
+    },
+    "circuitpython.board.version": "9.2.4",
+    "terminal.integrated.env.linux": {
+        "WINEPREFIX": "${env:HOME}/.inno"
+    },
+    "terminal.integrated.env.osx": {
+        "WINEPREFIX": "${env:HOME}/.inno"
+    }
+}

@@ -1,0 +1,7 @@
+* text=auto
+*.bat text=clrf
+*.vbs text=clrf
+*.sh text=lf
+*.iss text=clrf
+*.mpy binary
+*.hid binary
