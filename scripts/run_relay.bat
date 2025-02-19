@@ -3,7 +3,7 @@ TITLE TigerPad Relay
 
 IF EXIST relay.pid (
     GOTO stoprelay
-) else (
+) ELSE (
     GOTO checkvenv
 )
 
@@ -11,19 +11,7 @@ IF EXIST relay.pid (
 FOR /F "tokens=*" %%p IN (relay.pid) DO taskkill /pid %%p
 
 :checkvenv
-IF EXIST .venv\ (
-    GOTO updatedeps
-) else (
-    GOTO createvenv
-)
-
-:createvenv
-py -m venv .venv
-python -m pip install --upgrade pip
-
-:updatedeps
-call .venv\Scripts\activate.bat
-pip install -r requirements.txt
+CALL scripts\setup_venv.bat
 
 :startrelay
 pyw.exe relay\relay.pyw
