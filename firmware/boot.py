@@ -7,7 +7,7 @@ import usb_cdc
 import usb_hid
 import usb_midi
 
-from constants import FW_UPDATE_PIN
+from firmware.constants import FW_UPDATE_PIN
 
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
 usb_hid.set_interface_name("TigerPad Controller")  # type: ignore

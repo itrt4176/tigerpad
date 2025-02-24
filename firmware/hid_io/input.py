@@ -3,7 +3,7 @@ from digitalio import DigitalInOut, Direction, Pull
 from microcontroller import Pin
 from rotaryio import IncrementalEncoder
 
-from utils import input_modulus, map_val
+from firmware.utils import input_modulus, map_val
 
 
 class HIDInputBase:

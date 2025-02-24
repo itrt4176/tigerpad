@@ -8,7 +8,7 @@ import usb_hid
 from adafruit_hid import find_device # type: ignore
 from supervisor import ticks_ms
 
-from constants import FW_UPDATE_PIN
+from firmware.constants import FW_UPDATE_PIN
 from hid_io.input import HIDAnalogInput, HIDDigitalInput, HIDRotaryEncoder
 from hid_io.output import HIDLEDOutput
 
