@@ -9,7 +9,6 @@ import usb_midi
 
 from constants import FW_UPDATE_PIN
 
-supervisor.runtime.autoreload = False
 supervisor.set_usb_identification("Iron Tigers", "TigerPad Controller", 0x4176, 2025)
 usb_hid.set_interface_name("TigerPad Controller")  # type: ignore
 
@@ -21,8 +20,10 @@ usb_midi.disable()
 if not (bool(os.getenv("DEBUG_MODE", 1)) or fw_update_button.value):
     storage.disable_usb_drive()
     usb_cdc.enable(console=False, data=True)
+    supervisor.runtime.autoreload = True
 else:
     usb_cdc.enable(console=True, data=True)
+    supervisor.runtime.autoreload = False
 
 
 # fmt: off
