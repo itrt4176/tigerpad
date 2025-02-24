@@ -21,7 +21,7 @@ jobs:
             - name: Set version name
               shell: bash
               run: |
-                echo "_VERSION = $tag" > ${{ github.workspace }}/relay/_version.py
+                echo "_VERSION = $tag" > ${{ github.workspace }}\relay\_version.py
                 echo "VER_NAME=${tag:v}" >> "$GITHUB_ENV"
                 echo "VER_NOTES=$(git tag -l --format='%(contents:subject)%(contents:body)' $tag)" >> "$GITHUB_ENV"
 
