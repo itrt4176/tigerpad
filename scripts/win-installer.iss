@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TigerPad Relay"
-#define MyAppVersion "2025.1.1"
+#define MyAppVersion "dev"
 #define MyAppPublisher "Iron Tigers Robotics Team"
 #define MyAppURL "https://github.com/itrt4176/tigerpad"
 #define PyVersion "3.12.9"
@@ -26,7 +26,7 @@ MinVersion=10.0
 ; Uncomment the following line to run in non administrative install mode (install for current user only).
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
-OutputBaseFilename=relay-setup
+OutputBaseFilename=relay-setup_{#MyAppVersion}_x64
 OutputDir=dist
 SetupIconFile=relay\res\tigerpad.ico
 SolidCompression=yes

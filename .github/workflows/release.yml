@@ -8,6 +8,9 @@ on:
 permissions:
     contents: write
 
+env:
+  tag: ${{ github.ref_name }}
+
 jobs:
     release:
         name: Release pushed tag
@@ -15,16 +18,29 @@ jobs:
         steps:
             - uses: actions/checkout@v4
 
+            - name: Set version name
+              shell: bash
+              run: |
+                echo "_VERSION = $tag" > ${{ github.workspace }}/relay/_version.py
+                echo "VER_NAME=${tag:v}" >> "$GITHUB_ENV"
+                echo "VER_NOTES=$(git tag -l --format='%(contents:subject)%(contents:body)' $tag)" >> "$GITHUB_ENV"
+
             - name: Compile .iss to .exe installer
               uses: Minionguyjpro/Inno-Setup-Action@v1.2.5
               with:
                 path: scripts/win-installer.iss
-                options: /O+ 
+                options: /O+ /DMyAppVersion=${{ env.VER_NAME }}
 
             - name: Create release
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-                tag: ${{ github.ref_name }}
               run: |
-                gh release create "$Env:tag" "${{github.workspace}}\dist\relay-setup.exe" --repo="$GITHUB_REPOSITORY" --notes-from-tag
+                $args = "$Env:tag", "${{github.workspace}}\dist\relay-setup_${{ env.VER_NAME }}_x64.exe"
+                $opts = @{
+                  repo = "$GITHUB_REPOSITORY"
+                  notes = "${{ env.VER_NOTES }}"
+                  prerelease = $(($Env:tag -like '*-alpha*') -or ($Env:tag -like '*-beta*') -or ($Env:tag -like '*-rc*'))
+                }
+
+                gh release create @args @opts
 
