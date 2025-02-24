@@ -73,7 +73,7 @@ GAMEPAD_REPORT_DESCRIPTOR = bytes((
     0x09, 0x37,                    #     USAGE (Dial)
     0x15, 0x9c,                    #     LOGICAL_MINIMUM (-100)
     0x25, 0x64,                    #     LOGICAL_MAXIMUM (100)
-    0x75, 0x08,                    #     REPORT_SIZE (8)
+    0x75, 0x10,                    #     REPORT_SIZE (16)
     0x95, 0x01,                    #     REPORT_COUNT (1)
     0x81, 0x02,                    #     INPUT (Data,Var,Abs)
     0xc0,                          #   END_COLLECTION
@@ -86,7 +86,7 @@ hid_gamepad = usb_hid.Device(
     usage_page=0x01,
     usage=0x05,
     report_ids=(0,),
-    in_report_lengths=(9,),
+    in_report_lengths=(10,),
     out_report_lengths=(0,),
 )
 
