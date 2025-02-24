@@ -37,9 +37,9 @@ jobs:
               run: |
                 $args = "$Env:tag", "${{github.workspace}}\dist\relay-setup_${{ env.VER_NAME }}_x64.exe"
                 $opts = @{
-                  repo = "$GITHUB_REPOSITORY"
-                  notes = "${{ env.VER_NOTES }}"
-                  prerelease = $(($Env:tag -like '*-alpha*') -or ($Env:tag -like '*-beta*') -or ($Env:tag -like '*-rc*'))
+                  -repo = "$GITHUB_REPOSITORY"
+                  -notes = "${{ env.VER_NOTES }}"
+                  -prerelease = $(($Env:tag -like '*-alpha*') -or ($Env:tag -like '*-beta*') -or ($Env:tag -like '*-rc*'))
                 }
 
                 gh release create @args @opts
