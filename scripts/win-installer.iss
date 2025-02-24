@@ -2,7 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "TigerPad Relay"
-#define MyAppVersion "dev"
+#ifndef MyAppVersion
+  #define MyAppVersion "dev"
+#endif
 #define MyAppPublisher "Iron Tigers Robotics Team"
 #define MyAppURL "https://github.com/itrt4176/tigerpad"
 #define PyVersion "3.12.9"
