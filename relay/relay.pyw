@@ -5,6 +5,7 @@ import os
 import platform
 import struct
 import sys
+import webbrowser
 from functools import cache
 from pathlib import Path
 from signal import SIGINT, SIGTERM, signal
@@ -27,6 +28,13 @@ from pystray._base import Icon
 from serial import SerialException
 from serial.tools import list_ports
 from serial.tools.list_ports_common import ListPortInfo
+
+try:
+    from _version import _VERSION  # type: ignore
+
+    VERSION: str = _VERSION
+except ImportError:
+    VERSION = "dev build"
 
 echo = click.echo
 
@@ -180,6 +188,14 @@ def relay(tray_icon: Icon):
         ),
         menu.SEPARATOR,
         item("Quit", lambda _: do_stop()),
+        menu.SEPARATOR,
+        item(
+            VERSION,
+            action=lambda: webbrowser.open(
+                "https://github.com/itrt4176/tigerpad/releases/latest"
+            ),
+            enabled=True,
+        ),
     )
 
     tray_icon.visible = True

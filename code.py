@@ -64,14 +64,16 @@ while True:
         microcontroller.reset()
 
     if ticks_ms() >= last_run + 10:
-        report = bytearray(9)
+        report = bytearray(10)
 
         digital_bits: int = 0
         for digital_in in digital_hids:
             digital_bits |= digital_in.state << (digital_in.id - 1)
+        
+        print(rotary_encoder.state)
 
         struct.pack_into(
-            "<HhhhB",
+            "<Hhhhh",
             report,
             0,
             digital_bits,
