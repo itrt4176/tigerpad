@@ -3,10 +3,11 @@ try:
 except ImportError:
     pass
 
+import time
+
 from digitalio import DigitalInOut, Direction
 from microcontroller import Pin
 from micropython import const  # type: ignore
-from supervisor import ticks_ms
 
 
 class HIDOutputBase:
@@ -63,8 +64,8 @@ class HIDLEDOutput(HIDOutputBase):
         if self._state == HIDLEDOutput.Mode.OFF:
             self._led.value = False
         elif self._state == HIDLEDOutput.Mode.BLINK:
-            if ticks_ms() >= self._last_run + 750:
+            if time.monotonic_ns() >= self._last_run + 500_000_000:
                 self._led.value = not self._led.value
-                self._last_run = ticks_ms()
+                self._last_run = time.monotonic_ns()
         elif self._state == HIDLEDOutput.Mode.ON:
             self._led.value = True

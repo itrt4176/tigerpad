@@ -155,10 +155,6 @@ def relay(tray_icon: Icon):
         state: bool = ser.port == menu_item.text.split()[0]  # type: ignore
         return state
 
-    def ser_is_open(_) -> bool:
-        global ser
-        return ser.is_open
-
     run = True
 
     def stop():
@@ -203,6 +199,8 @@ def relay(tray_icon: Icon):
     last_nt = nt_inst.isConnected()
     last_ser = ser.is_open
 
+    last_state = led_state
+
     while run:
         if ser.port not in [port.device for port in list_ports.comports(True)]:
             ser.close()
@@ -232,7 +230,7 @@ def relay(tray_icon: Icon):
                     led_state &= mask
                     led_state |= new_state << bit_idx
 
-                send_serial = True
+                send_serial = last_state != led_state
 
         try:
             if send_serial and ser.is_open:
@@ -241,6 +239,7 @@ def relay(tray_icon: Icon):
                 ser.write(state_output)
                 ser.flush()
                 send_serial = False
+                last_state = led_state
         except SerialException:
             ser.close()
 
