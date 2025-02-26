@@ -1,3 +1,14 @@
+import os
+import digitalio
+
+from constants import FW_UPDATE_PIN
+
+fw_update_button = digitalio.DigitalInOut(FW_UPDATE_PIN)
+fw_update_button.pull = digitalio.Pull.DOWN
+
+DEBUG_MODE = bool(os.getenv("DEBUG_MODE", 1)) or fw_update_button.value
+fw_update_button.deinit()
+
 def map_val(val: int, in_min: int, in_max: int, out_min: int, out_max: int) -> int:
     return (val - in_min) * (out_max - out_min) // (in_max - in_min) + out_min
 
